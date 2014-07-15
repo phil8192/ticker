@@ -3,8 +3,8 @@ package net.parasec.trading.ticker.core.wire;
 public class OrderInfo {
 
   private final String exchangeOrderId;
-  private final int limitPrice;
-  private final long volume;
+  private int limitPrice;
+  private long volume;
   private final long exchangeTimestamp;
 
   
@@ -31,5 +31,14 @@ public class OrderInfo {
   public long getExchangeTimestamp() {
     return exchangeTimestamp;
   }
+
+  public void setVolume(final long volume) {
+    this.volume = volume;
+  }
+
+  public void setLimitPrice(final int limitPrice) {
+    this.limitPrice = limitPrice;
+  }
+
 }
 
