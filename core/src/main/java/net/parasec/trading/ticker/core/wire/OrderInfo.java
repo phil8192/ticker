@@ -32,12 +32,12 @@ public class OrderInfo {
     return exchangeTimestamp;
   }
 
-  public void setVolume(final long volume) {
-    this.volume = volume;
-  }
-
   public void setLimitPrice(final int limitPrice) {
     this.limitPrice = limitPrice;
+  }
+
+  public void setVolume(final long volume) {
+    this.volume = volume;
   }
 
 }
