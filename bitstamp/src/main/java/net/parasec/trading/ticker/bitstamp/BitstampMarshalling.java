@@ -52,7 +52,7 @@ public final class BitstampMarshalling {
         = JSONUtil.unserialise(raw, BitstampTrade.class); 
     final int cents = (int) Math.round(rawTrade.getPrice()*100);
     final long satoshi = (long) Math.round(rawTrade.getAmount()*100000000);
-    return new Trade(null, cents, satoshi, 0, rawTrade.getId(), null, null);
+    return new Trade(null, cents, satoshi, 0, 0, rawTrade.getId(), null, null);
   }
 }
 
