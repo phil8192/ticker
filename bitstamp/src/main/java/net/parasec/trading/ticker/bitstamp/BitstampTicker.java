@@ -25,11 +25,22 @@ public final class BitstampTicker extends Ticker {
   private final static String ORDERBOOK_CHANNEL = "order_book";
   private final static String ORDERBOOK_TOPIC = "data";
 
-  public BitstampTicker() {
-    initBroadcaster();
+
+  public BitstampTicker(){this(null);}
+
+  public BitstampTicker(String pair) {
+    initBroadcaster(pair);
   }
 
-  private void initBroadcaster() {
+  private void initBroadcaster(String pair) {
+    String orders_channel = QUOTES_CHANNEL;
+    String trades_channel = TRADES_CHANNEL;
+    String ob_channel = ORDERBOOK_CHANNEL;
+    if(pair != null) {
+      orders_channel += "_" + pair;
+      trades_channel += "_" + pair;
+      ob_channel += "_" + pair;
+    }
     
     // configure pusherapp
     final PusherOptions options = new PusherOptions()
@@ -62,7 +73,7 @@ public final class BitstampTicker extends Ticker {
     }, ConnectionState.ALL);
 
     // subscribe to orders channel (created, updated, deleted)
-    final Channel ordersChannel = pusher.subscribe(QUOTES_CHANNEL);
+    final Channel ordersChannel = pusher.subscribe(orders_channel);
     ordersChannel.bind(QUOTE_CREATED_TOPIC, new SubscriptionEventListener() {
       public final void onEvent(final String channel, final String event, 
           final String data) {
@@ -86,7 +97,7 @@ public final class BitstampTicker extends Ticker {
     });
 
     // subscribe to trades channel
-    final Channel tradesChannel = pusher.subscribe(TRADES_CHANNEL);
+    final Channel tradesChannel = pusher.subscribe(trades_channel);
     tradesChannel.bind(TRADES_TOPIC, new SubscriptionEventListener() {
       public final void onEvent(final String channel, final String event, 
           final String data) {
@@ -95,7 +106,7 @@ public final class BitstampTicker extends Ticker {
     });
 
     // subscribe to order book channel
-    final Channel orderBookChannel = pusher.subscribe(ORDERBOOK_CHANNEL);
+    final Channel orderBookChannel = pusher.subscribe(ob_channel);
     orderBookChannel.bind(ORDERBOOK_TOPIC, new SubscriptionEventListener() {
       public final void onEvent(final String channel, final String event,
           final String data) {
@@ -104,4 +115,3 @@ public final class BitstampTicker extends Ticker {
     });
   } 
 }
-
