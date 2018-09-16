@@ -7,7 +7,7 @@ public final class BitstampOrder {
   private double price; 
   private double amount;
   private long datetime;
-  private int id;
+  private long id;
 
 
   public BitstampOrder() {}
@@ -28,8 +28,7 @@ public final class BitstampOrder {
     return datetime;
   }
     
-  public int getId() {
+  public long getId() {
     return id;
   }
 }
-
