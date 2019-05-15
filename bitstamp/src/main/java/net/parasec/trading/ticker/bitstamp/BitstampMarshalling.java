@@ -22,7 +22,7 @@ public final class BitstampMarshalling {
     final int cents = (int) Math.round(rawOrder.getPrice()*100);
     final long satoshi = (long) Math.round(rawOrder.getAmount()*100000000);
     final OrderInfo orderInfo
-        = new OrderInfo(Long.toString(rawOrder.getId()), cents, satoshi, 
+        = new OrderInfo(rawOrder.getId(), cents, satoshi, 
               rawOrder.getDatetime()); 
     return new OrderEvent(state, direction, "btc/usd", "bitstamp", orderInfo); 
   }
